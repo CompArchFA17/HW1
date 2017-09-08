@@ -1,0 +1,59 @@
+#! /usr/bin/vvp
+:ivl_version "0.9.7 " "(v0_9_7)";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x20e1920 .scope module, "demorgan_test" "demorgan_test" 2 3;
+ .timescale 0 0;
+v0x2116b80_0 .var "A", 0 0;
+v0x2116c20_0 .var "B", 0 0;
+v0x2116cd0_0 .net "nA", 0 0, L_0x2117140; 1 drivers
+v0x2116d80_0 .net "nAandnB", 0 0, L_0x21173f0; 1 drivers
+v0x2116e60_0 .net "nAornB", 0 0, L_0x2117340; 1 drivers
+v0x2116f10_0 .net "nB", 0 0, L_0x2117240; 1 drivers
+v0x2116f90_0 .net "n_AandB", 0 0, L_0x21175c0; 1 drivers
+v0x2117040_0 .net "n_AorB", 0 0, L_0x2117620; 1 drivers
+S_0x20cc690 .scope module, "dut" "demorgan" 2 9, 3 1, S_0x20e1920;
+ .timescale 0 0;
+L_0x2117140 .functor NOT 1, v0x2116b80_0, C4<0>, C4<0>, C4<0>;
+L_0x2117240 .functor NOT 1, v0x2116c20_0, C4<0>, C4<0>, C4<0>;
+L_0x2117340 .functor AND 1, L_0x2117140, L_0x2117240, C4<1>, C4<1>;
+L_0x21173f0 .functor OR 1, L_0x2117140, L_0x2117240, C4<0>, C4<0>;
+L_0x21175c0 .functor NOR 1, v0x2116b80_0, v0x2116c20_0, C4<0>, C4<0>;
+L_0x2117620 .functor NAND 1, v0x2116b80_0, v0x2116c20_0, C4<1>, C4<1>;
+v0x20cc780_0 .net "A", 0 0, v0x2116b80_0; 1 drivers
+v0x2116680_0 .net "B", 0 0, v0x2116c20_0; 1 drivers
+v0x2116720_0 .alias "nA", 0 0, v0x2116cd0_0;
+v0x21167c0_0 .alias "nAandnB", 0 0, v0x2116e60_0;
+v0x2116870_0 .alias "nAornB", 0 0, v0x2116d80_0;
+v0x2116910_0 .alias "nB", 0 0, v0x2116f10_0;
+v0x21169f0_0 .alias "n_AandB", 0 0, v0x2117040_0;
+v0x2116a90_0 .alias "n_AorB", 0 0, v0x2116f90_0;
+    .scope S_0x20e1920;
+T_0 ;
+    %vpi_call 2 14 "$display", "A B | ~A ~B | ~A~B | ~A+~B | ~(AB) | ~(A+B) ";
+    %set/v v0x2116b80_0, 0, 1;
+    %set/v v0x2116c20_0, 0, 1;
+    %delay 1, 0;
+    %vpi_call 2 16 "$display", "%b %b |  %b  %b |    %b |    %b  |    %b  |   %b   ", v0x2116b80_0, v0x2116c20_0, v0x2116cd0_0, v0x2116f10_0, v0x2116d80_0, v0x2116e60_0, v0x2116f90_0, v0x2117040_0;
+    %set/v v0x2116b80_0, 0, 1;
+    %set/v v0x2116c20_0, 1, 1;
+    %delay 1, 0;
+    %vpi_call 2 18 "$display", "%b %b |  %b  %b |    %b |    %b  |    %b  |   %b   ", v0x2116b80_0, v0x2116c20_0, v0x2116cd0_0, v0x2116f10_0, v0x2116d80_0, v0x2116e60_0, v0x2116f90_0, v0x2117040_0;
+    %set/v v0x2116b80_0, 1, 1;
+    %set/v v0x2116c20_0, 0, 1;
+    %delay 1, 0;
+    %vpi_call 2 20 "$display", "%b %b |  %b  %b |    %b |    %b  |    %b  |   %b   ", v0x2116b80_0, v0x2116c20_0, v0x2116cd0_0, v0x2116f10_0, v0x2116d80_0, v0x2116e60_0, v0x2116f90_0, v0x2117040_0;
+    %set/v v0x2116b80_0, 1, 1;
+    %set/v v0x2116c20_0, 1, 1;
+    %delay 1, 0;
+    %vpi_call 2 22 "$display", "%b %b |  %b  %b |    %b |    %b  |    %b  |   %b   ", v0x2116b80_0, v0x2116c20_0, v0x2116cd0_0, v0x2116f10_0, v0x2116d80_0, v0x2116e60_0, v0x2116f90_0, v0x2117040_0;
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "hw1.t.v";
+    "./hw1.v";
