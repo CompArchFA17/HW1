@@ -1,0 +1,118 @@
+#! /usr/local/bin/vvp
+:ivl_version "11.0 (devel)" "(s20150603-477-gc855b89)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "system";
+:vpi_module "vhdl_sys";
+:vpi_module "vhdl_textio";
+:vpi_module "v2005_math";
+:vpi_module "va_math";
+S_0x18c47a0 .scope module, "demorgan_test" "demorgan_test" 2 3;
+ .timescale 0 0;
+v0x192d290_0 .var "A", 0 0;
+v0x192d3a0_0 .var "B", 0 0;
+RS_0x7ff6fa778078 .resolv tri, L_0x192d990, L_0x192dde0;
+v0x192d4b0_0 .net8 "nA", 0 0, RS_0x7ff6fa778078;  2 drivers
+v0x192d5a0_0 .net "nAandB", 0 0, L_0x192df70;  1 drivers
+v0x192d640_0 .net "nAandnB", 0 0, L_0x192da70;  1 drivers
+v0x192d730_0 .net "nAorB", 0 0, L_0x192dc50;  1 drivers
+v0x192d7d0_0 .net "nAornB", 0 0, L_0x192dee0;  1 drivers
+RS_0x7ff6fa778108 .resolv tri, L_0x192da00, L_0x192de50;
+v0x192d8a0_0 .net8 "nB", 0 0, RS_0x7ff6fa778108;  2 drivers
+S_0x18c4930 .scope module, "dna" "demorgan_not_and" 2 13, 3 20 0, S_0x18c47a0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "A"
+    .port_info 1 /INPUT 1 "B"
+    .port_info 2 /OUTPUT 1 "nA"
+    .port_info 3 /OUTPUT 1 "nB"
+    .port_info 4 /OUTPUT 1 "nAornB"
+    .port_info 5 /OUTPUT 1 "nAandB"
+L_0x192dde0 .functor NOT 1, v0x192d290_0, C4<0>, C4<0>, C4<0>;
+L_0x192de50 .functor NOT 1, v0x192d3a0_0, C4<0>, C4<0>, C4<0>;
+L_0x192dee0 .functor OR 1, RS_0x7ff6fa778078, RS_0x7ff6fa778108, C4<0>, C4<0>;
+L_0x192df70 .functor NAND 1, v0x192d290_0, v0x192d3a0_0, C4<1>, C4<1>;
+v0x190ca30_0 .net "A", 0 0, v0x192d290_0;  1 drivers
+v0x192c590_0 .net "B", 0 0, v0x192d3a0_0;  1 drivers
+v0x192c650_0 .net8 "nA", 0 0, RS_0x7ff6fa778078;  alias, 2 drivers
+v0x192c720_0 .net "nAandB", 0 0, L_0x192df70;  alias, 1 drivers
+v0x192c7e0_0 .net "nAornB", 0 0, L_0x192dee0;  alias, 1 drivers
+v0x192c8f0_0 .net8 "nB", 0 0, RS_0x7ff6fa778108;  alias, 2 drivers
+S_0x192cab0 .scope module, "dno" "demorgan_not_or" 2 9, 3 1 0, S_0x18c47a0;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "A"
+    .port_info 1 /INPUT 1 "B"
+    .port_info 2 /OUTPUT 1 "nA"
+    .port_info 3 /OUTPUT 1 "nB"
+    .port_info 4 /OUTPUT 1 "nAandnB"
+    .port_info 5 /OUTPUT 1 "nAorB"
+L_0x192d990 .functor NOT 1, v0x192d290_0, C4<0>, C4<0>, C4<0>;
+L_0x192da00 .functor NOT 1, v0x192d3a0_0, C4<0>, C4<0>, C4<0>;
+L_0x192da70 .functor AND 1, RS_0x7ff6fa778078, RS_0x7ff6fa778108, C4<1>, C4<1>;
+L_0x192dc50 .functor NOR 1, v0x192d290_0, v0x192d3a0_0, C4<0>, C4<0>;
+v0x192cd50_0 .net "A", 0 0, v0x192d290_0;  alias, 1 drivers
+v0x192cdf0_0 .net "B", 0 0, v0x192d3a0_0;  alias, 1 drivers
+v0x192cec0_0 .net8 "nA", 0 0, RS_0x7ff6fa778078;  alias, 2 drivers
+v0x192cfc0_0 .net "nAandnB", 0 0, L_0x192da70;  alias, 1 drivers
+v0x192d060_0 .net "nAorB", 0 0, L_0x192dc50;  alias, 1 drivers
+v0x192d150_0 .net8 "nB", 0 0, RS_0x7ff6fa778108;  alias, 2 drivers
+    .scope S_0x18c47a0;
+T_0 ;
+    %vpi_call 2 16 "$display", "A B | ~A ~B | ~A~B | ~(A+B) " {0 0 0};
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x192d290_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x192d3a0_0, 0, 1;
+    %delay 1, 0;
+    %vpi_call 2 18 "$display", "%b %b |  %b  %b |    %b |      %b  ", v0x192d290_0, v0x192d3a0_0, v0x192d4b0_0, v0x192d8a0_0, v0x192d640_0, v0x192d730_0 {0 0 0};
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x192d290_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x192d3a0_0, 0, 1;
+    %delay 1, 0;
+    %vpi_call 2 20 "$display", "%b %b |  %b  %b |    %b |      %b  ", v0x192d290_0, v0x192d3a0_0, v0x192d4b0_0, v0x192d8a0_0, v0x192d640_0, v0x192d730_0 {0 0 0};
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x192d290_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x192d3a0_0, 0, 1;
+    %delay 1, 0;
+    %vpi_call 2 22 "$display", "%b %b |  %b  %b |    %b |      %b  ", v0x192d290_0, v0x192d3a0_0, v0x192d4b0_0, v0x192d8a0_0, v0x192d640_0, v0x192d730_0 {0 0 0};
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x192d290_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x192d3a0_0, 0, 1;
+    %delay 1, 0;
+    %vpi_call 2 24 "$display", "%b %b |  %b  %b |    %b |      %b  ", v0x192d290_0, v0x192d3a0_0, v0x192d4b0_0, v0x192d8a0_0, v0x192d640_0, v0x192d730_0 {0 0 0};
+    %vpi_call 2 25 "$display", "\000" {0 0 0};
+    %vpi_call 2 26 "$display", "A B | ~A ~B | ~A+~B | ~(AB) " {0 0 0};
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x192d290_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x192d3a0_0, 0, 1;
+    %delay 1, 0;
+    %vpi_call 2 28 "$display", "%b %b |  %b  %b |     %b |     %b  ", v0x192d290_0, v0x192d3a0_0, v0x192d4b0_0, v0x192d8a0_0, v0x192d7d0_0, v0x192d5a0_0 {0 0 0};
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x192d290_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x192d3a0_0, 0, 1;
+    %delay 1, 0;
+    %vpi_call 2 30 "$display", "%b %b |  %b  %b |     %b |     %b  ", v0x192d290_0, v0x192d3a0_0, v0x192d4b0_0, v0x192d8a0_0, v0x192d7d0_0, v0x192d5a0_0 {0 0 0};
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x192d290_0, 0, 1;
+    %pushi/vec4 0, 0, 1;
+    %store/vec4 v0x192d3a0_0, 0, 1;
+    %delay 1, 0;
+    %vpi_call 2 32 "$display", "%b %b |  %b  %b |     %b |     %b  ", v0x192d290_0, v0x192d3a0_0, v0x192d4b0_0, v0x192d8a0_0, v0x192d7d0_0, v0x192d5a0_0 {0 0 0};
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x192d290_0, 0, 1;
+    %pushi/vec4 1, 0, 1;
+    %store/vec4 v0x192d3a0_0, 0, 1;
+    %delay 1, 0;
+    %vpi_call 2 34 "$display", "%b %b |  %b  %b |     %b |     %b  ", v0x192d290_0, v0x192d3a0_0, v0x192d4b0_0, v0x192d8a0_0, v0x192d7d0_0, v0x192d5a0_0 {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 4;
+    "N/A";
+    "<interactive>";
+    "hw1.t.v";
+    "./hw1.v";
