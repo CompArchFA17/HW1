@@ -1,0 +1,9 @@
+// Homework 1 results
+// Kaitlyn Keil
+// CompArch Fall 2017
+
+A B | ~A ~B | ~A~B ~(A+B) | ~(A*B) ~A+~B 
+0 0 |  1  1 |   1    1    |    1     1   |
+0 1 |  1  0 |   0    0    |    1     1   |
+1 0 |  0  1 |   0    0    |    1     1   |
+1 1 |  0  0 |   0    0    |    0     0   |
